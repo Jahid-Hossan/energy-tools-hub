@@ -4,7 +4,7 @@ export const categories = [
   { slug: "generator", path: "/generator-tools", name: "Generator Tools", icon: "⚡", description: "Plan capacity, loads, fuel use, and runtime with clear headroom." },
   { slug: "electrical", path: "/electrical-tools", name: "Electrical Tools", icon: "◌", description: "Convert watts, amps, volts, energy, and cost without hidden assumptions." },
   { slug: "battery", path: "/battery-tools", name: "Battery Tools", icon: "▣", description: "Estimate usable energy, runtime, capacity, and charging time." },
-  { slug: "solar", path: "/solar-tools", name: "Solar Tools", icon: "☼", description: "Solar planning tools are coming next. The architecture is ready." },
+  { slug: "solar", path: "/solar-tools", name: "Solar Tools", icon: "☼", description: "Plan solar array size, battery capacity, charging time, and inverter requirements." },
 ] as const;
 export const tools: Tool[] = [
   ["generator-size-calculator", "Generator Size Calculator", "generator", "Estimate generator capacity from running loads and startup surge.", "capacity = running load + largest surge delta, with headroom", "W"],
@@ -22,6 +22,10 @@ export const tools: Tool[] = [
   ["ah-to-wh-calculator", "Ah to Wh Calculator", "battery", "Convert amp-hours into stored watt-hours.", "Wh = Ah × volts", "Wh"],
   ["wh-to-ah-calculator", "Wh to Ah Calculator", "battery", "Convert watt-hours into amp-hours at a selected voltage.", "Ah = Wh / volts", "Ah"],
   ["battery-charging-time-calculator", "Battery Charging Time Calculator", "battery", "Estimate charging time with charging efficiency and charger power.", "hours = battery Wh / charger W / efficiency", "hours"],
+  ["solar-panel-size-calculator", "Solar Panel Size Calculator", "solar", "Estimate required solar array size from daily energy, peak sun hours, and system efficiency.", "required kW = daily kWh ÷ (peak sun hours × efficiency)", "kW"],
+  ["solar-battery-size-calculator", "Solar Battery Size Calculator", "solar", "Estimate battery capacity for a daily or backup energy requirement.", "Ah = required Wh ÷ (V × DoD × efficiency)", "Ah"],
+  ["solar-charge-time-calculator", "Solar Charge Time Calculator", "solar", "Estimate solar charging time from battery capacity, panel power, and charging efficiency.", "hours = (Ah × V) ÷ (panel W × charging efficiency)", "hours"],
+  ["solar-inverter-size-calculator", "Solar Inverter Size Calculator", "solar", "Estimate continuous inverter rating and surge capability from connected loads.", "continuous and surge loads with an explicit safety margin", "W"],
 ].map(([slug, name, category, description, formula, unit]) => ({ slug, name, category: category as ToolCategory, description, formula, unit }));
 export function getTool(slug: string) { return tools.find((tool) => tool.slug === slug); }
 export function getCategory(slug: string) { return categories.find((category) => category.slug === slug); }

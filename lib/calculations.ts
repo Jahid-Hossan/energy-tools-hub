@@ -76,3 +76,22 @@ export function generatorRuntime(fuelGallons: number, fuelConsumptionGallonsPerH
 export function generatorFuelConsumption(fuelConsumptionGallonsPerHour: number, hours: number) {
   return finiteNonNegative(fuelConsumptionGallonsPerHour) * finiteNonNegative(hours);
 }
+
+export function solarPanelSize(dailyEnergyKwh: number, peakSunHours: number, efficiencyFraction: number) {
+  const denominator = finiteNonNegative(peakSunHours) * clampFraction(efficiencyFraction);
+  return denominator === 0 ? 0 : finiteNonNegative(dailyEnergyKwh) / denominator;
+}
+export function solarBatteryCapacity(requiredWh: number, volts: number, depthOfDischargeFraction: number, efficiencyFraction: number) {
+  const denominator = finiteNonNegative(volts) * clampFraction(depthOfDischargeFraction) * clampFraction(efficiencyFraction);
+  return denominator === 0 ? 0 : finiteNonNegative(requiredWh) / denominator;
+}
+export function solarChargeTime(ampHours: number, volts: number, panelWatts: number, chargingEfficiencyFraction: number) {
+  const denominator = finiteNonNegative(panelWatts) * clampFraction(chargingEfficiencyFraction);
+  return denominator === 0 ? 0 : ahToWh(ampHours, volts) / denominator;
+}
+export function solarInverterSize(continuousLoadWatts: number, surgeLoadWatts: number, safetyMarginPercent: number) {
+  const margin = Number.isFinite(safetyMarginPercent) && safetyMarginPercent > 0 ? safetyMarginPercent : 0;
+  const continuous = finiteNonNegative(continuousLoadWatts);
+  const surge = Math.max(continuous, finiteNonNegative(surgeLoadWatts));
+  return { recommendedContinuousWatts: continuous * (1 + margin / 100), requiredSurgeWatts: surge * (1 + margin / 100) };
+}

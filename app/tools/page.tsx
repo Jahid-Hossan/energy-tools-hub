@@ -64,12 +64,7 @@ export default function AllToolsPage() {
                     </Link>
                   ))}
                 </div>
-              ) : (
-                <p className="mt-4 leading-7 text-[var(--ink-muted)]">
-                  Solar calculators are being added. No unpublished routes are
-                  linked.
-                </p>
-              )}
+              ) : null}
             </section>
           );
         })}

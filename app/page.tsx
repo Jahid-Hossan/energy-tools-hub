@@ -50,7 +50,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <div className="ad-slot mb-14">Advertisement space</div>
         <section id="tools">
           <div className="mb-7 flex items-end justify-between">
             <div>

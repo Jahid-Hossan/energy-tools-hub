@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Solar Tools",
   description:
-    "Solar planning resources from Energy Tools Hub, with calculators being added as they are ready.",
+    "Solar array, battery, charging time, and inverter sizing calculators for transparent early-stage planning.",
   alternates: { canonical: "/solar-tools" },
 };
 export default function SolarToolsPage() {

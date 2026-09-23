@@ -51,16 +51,6 @@ select {
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-.ad-slot {
-  min-height: 92px;
-  border: 1px dashed #b9c9bc;
-  color: #7e9184;
-  display: grid;
-  place-items: center;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
 .primary-button {
   background: var(--green-dark);
   color: #ffffff;

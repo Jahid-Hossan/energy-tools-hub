@@ -11,6 +11,10 @@ import {
   generatorFuelConsumption,
   generatorRuntime,
   generatorWattage,
+  solarBatteryCapacity,
+  solarChargeTime,
+  solarInverterSize,
+  solarPanelSize,
   solveVoltsAmpsWatts,
   wattsToAmps,
   whToAh,
@@ -59,4 +63,15 @@ describe("battery calculators", () => {
   it("prevents division by zero in Wh to Ah", () => expect(whToAh(1200, 0)).toBe(0));
   it("calculates charging time with efficiency", () => expect(batteryChargingTime(100, 12, 500, 0.9)).toBeCloseTo(2.6667, 4));
   it("prevents meaningless charging time for zero charger power", () => expect(batteryChargingTime(100, 12, 0, 0.9)).toBe(0));
+});
+
+describe("solar calculators", () => {
+  it("calculates solar panel size", () => expect(solarPanelSize(10, 5, 0.8)).toBe(2.5));
+  it("returns zero solar panel size for invalid sun or efficiency", () => expect(solarPanelSize(10, 0, 0.8)).toBe(0));
+  it("calculates solar battery capacity", () => expect(solarBatteryCapacity(2400, 24, 0.8, 0.9)).toBeCloseTo(138.8889, 4));
+  it("returns zero solar battery capacity for invalid voltage", () => expect(solarBatteryCapacity(2400, 0, 0.8, 0.9)).toBe(0));
+  it("calculates solar charge time", () => expect(solarChargeTime(100, 12, 300, 0.8)).toBe(5));
+  it("returns zero solar charge time for invalid panel power", () => expect(solarChargeTime(100, 12, 0, 0.8)).toBe(0));
+  it("calculates inverter continuous and surge requirements with margin", () => expect(solarInverterSize(2000, 3000, 20)).toEqual({ recommendedContinuousWatts: 2400, requiredSurgeWatts: 3600 }));
+  it("handles negative inverter inputs without negative requirements", () => expect(solarInverterSize(-2000, -3000, -20)).toEqual({ recommendedContinuousWatts: 0, requiredSurgeWatts: 0 }));
 });

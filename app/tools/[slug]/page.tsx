@@ -1,6 +1,8 @@
 import { BreadcrumbJsonLd } from "@/components/BreadcrumbJsonLd";
 import { CalculatorClient } from "@/components/CalculatorClient";
 import { Header } from "@/components/Header";
+import { WattsToAmpsContent } from "@/components/WattsToAmpsContent";
+import { siteConfig } from "@/lib/site";
 import { getCategory, getTool, tools } from "@/lib/tools";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -17,11 +19,27 @@ export async function generateMetadata({
   const { slug } = await params;
   const tool = getTool(slug);
   return tool
-    ? {
-        title: tool.name,
-        description: `${tool.description} Free online calculator with transparent assumptions.`,
-        alternates: { canonical: `/tools/${tool.slug}` },
-      }
+    ? tool.slug === "watts-to-amps-calculator"
+      ? {
+          title: "Watts to Amps Calculator: DC, AC, and Three-Phase",
+          description:
+            "Convert watts to amps for DC, single-phase AC, and three-phase AC systems with power factor guidance and worked examples.",
+          alternates: {
+            canonical: `${siteConfig.url}/tools/watts-to-amps-calculator`,
+          },
+          openGraph: {
+            title: "Watts to Amps Calculator",
+            description:
+              "Convert watts to amps across DC and AC systems with clear formulas and examples.",
+            url: `${siteConfig.url}/tools/watts-to-amps-calculator`,
+            type: "website",
+          },
+        }
+      : {
+          title: tool.name,
+          description: `${tool.description} Free online calculator with transparent assumptions.`,
+          alternates: { canonical: `/tools/${tool.slug}` },
+        }
     : {};
 }
 export default async function ToolPage({
@@ -65,7 +83,7 @@ export default async function ToolPage({
         <div className="my-10">
           <CalculatorClient tool={tool} />
         </div>
-        <div className="ad-slot my-10">Advertisement space</div>
+        {tool.slug === "watts-to-amps-calculator" && <WattsToAmpsContent />}
         <section className="grid gap-8 border-t border-[var(--line)] pt-10 md:grid-cols-2">
           <div>
             <h2 className="text-2xl font-black">Important assumptions</h2>

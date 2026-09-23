@@ -11,7 +11,6 @@ export function CategoryPage({
   const category = categories.find((item) => item.slug === slug);
   if (!category) return null;
   const categoryTools = tools.filter((tool) => tool.category === category.slug);
-  const isSolar = category.slug === "solar";
   return (
     <div className="site-grid min-h-screen">
       <BreadcrumbJsonLd
@@ -37,18 +36,6 @@ export function CategoryPage({
         <p className="mt-4 max-w-2xl text-lg leading-8 text-[var(--ink-muted)]">
           {category.description}
         </p>
-        {isSolar && (
-          <div className="mt-8 max-w-3xl rounded-2xl border border-[var(--line)] bg-white p-6">
-            <h2 className="text-2xl font-black">Solar tools are being added</h2>
-            <p className="mt-3 leading-7 text-[var(--ink-muted)]">
-              We are building solar calculators around transparent assumptions
-              for panel output, battery storage, inverter sizing, and peak sun
-              hours. No placeholder calculator links are shown until those tools
-              are implemented.
-            </p>
-          </div>
-        )}
-        <div className="ad-slot my-10">Advertisement space</div>
         {categoryTools.length > 0 ? (
           <>
             <h2 className="mb-5 text-2xl font-black">

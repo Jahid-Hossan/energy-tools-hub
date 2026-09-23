@@ -13,6 +13,10 @@ import {
   generatorRuntime,
   generatorWattage,
   round,
+  solarBatteryCapacity,
+  solarChargeTime,
+  solarInverterSize,
+  solarPanelSize,
   solveVoltsAmpsWatts,
   wattsToAmps,
   whToAh,
@@ -43,6 +47,17 @@ const defaults: Values = {
   efficiency: "90",
   charger: "500",
   unknown: "watts",
+  dailyEnergy: "10",
+  sunHours: "5",
+  systemEfficiency: "80",
+  requiredWh: "2400",
+  solarVoltage: "24",
+  solarAh: "100",
+  panelPower: "300",
+  chargingEfficiency: "80",
+  continuousLoad: "2000",
+  surgeLoad: "3000",
+  safetyMargin: "20",
 };
 
 function numberValue(value: string) {
@@ -447,6 +462,176 @@ function GenericCalculator({ tool }: { tool: Tool }) {
           title="Estimated appliance wattage"
           value={`${round(result)} W`}
           detail="Wattage = voltage × current × power factor, with √3 for three-phase AC."
+        />
+      </div>
+    );
+  }
+  if (tool.slug === "solar-panel-size-calculator") {
+    const result = solarPanelSize(
+      n("dailyEnergy"),
+      n("sunHours"),
+      percentageFraction("systemEfficiency"),
+    );
+    return (
+      <div className="grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
+        <FormShell note="This is an early-stage estimate. Actual output varies with orientation, shading, weather, temperature, equipment, and installation conditions.">
+          <NumericField
+            label="Daily energy usage"
+            value={values.dailyEnergy}
+            onChange={set("dailyEnergy")}
+            suffix="kWh/day"
+          />
+          <NumericField
+            label="Peak sun hours"
+            value={values.sunHours}
+            onChange={set("sunHours")}
+            suffix="hours"
+          />
+          <NumericField
+            label="System efficiency"
+            value={values.systemEfficiency}
+            onChange={(value) =>
+              set("systemEfficiency")(String(Math.min(100, numberValue(value))))
+            }
+            suffix="%"
+          />
+        </FormShell>
+        <ResultPanel
+          title="Required solar array size"
+          value={`${round(result, 2)} kW`}
+          detail="Required kW = daily kWh ÷ (peak sun hours × efficiency fraction)."
+        />
+      </div>
+    );
+  }
+  if (tool.slug === "solar-battery-size-calculator") {
+    const result = solarBatteryCapacity(
+      n("requiredWh"),
+      n("solarVoltage"),
+      percentageFraction("dod"),
+      percentageFraction("efficiency"),
+    );
+    return (
+      <div className="grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
+        <FormShell note="This estimates nominal battery capacity. Actual usable capacity depends on battery specifications, temperature, age, and operating conditions.">
+          <NumericField
+            label="Energy requirement"
+            value={values.requiredWh}
+            onChange={set("requiredWh")}
+            suffix="Wh"
+          />
+          <NumericField
+            label="Battery voltage"
+            value={values.solarVoltage}
+            onChange={set("solarVoltage")}
+            suffix="V"
+          />
+          <NumericField
+            label="Depth of discharge"
+            value={values.dod}
+            onChange={(value) =>
+              set("dod")(String(Math.min(100, numberValue(value))))
+            }
+            suffix="%"
+          />
+          <NumericField
+            label="System/inverter efficiency"
+            value={values.efficiency}
+            onChange={(value) =>
+              set("efficiency")(String(Math.min(100, numberValue(value))))
+            }
+            suffix="%"
+          />
+        </FormShell>
+        <ResultPanel
+          title="Required battery capacity"
+          value={`${round(result, 2)} Ah`}
+          detail="Ah = required Wh ÷ (V × DoD fraction × efficiency fraction)."
+        />
+      </div>
+    );
+  }
+  if (tool.slug === "solar-charge-time-calculator") {
+    const result = solarChargeTime(
+      n("solarAh"),
+      n("solarVoltage"),
+      n("panelPower"),
+      percentageFraction("chargingEfficiency"),
+    );
+    return (
+      <div className="grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
+        <FormShell note="Charging time is an estimate. Sunlight, panel output, temperature, shading, controller behavior, and charging taper can change actual results.">
+          <NumericField
+            label="Battery capacity"
+            value={values.solarAh}
+            onChange={set("solarAh")}
+            suffix="Ah"
+          />
+          <NumericField
+            label="Battery voltage"
+            value={values.solarVoltage}
+            onChange={set("solarVoltage")}
+            suffix="V"
+          />
+          <NumericField
+            label="Solar panel power"
+            value={values.panelPower}
+            onChange={set("panelPower")}
+            suffix="W"
+          />
+          <NumericField
+            label="Charging efficiency"
+            value={values.chargingEfficiency}
+            onChange={(value) =>
+              set("chargingEfficiency")(
+                String(Math.min(100, numberValue(value))),
+              )
+            }
+            suffix="%"
+          />
+        </FormShell>
+        <ResultPanel
+          title="Estimated solar charging time"
+          value={`${round(result, 2)} hours`}
+          detail="Wh = Ah × V; charging hours = Wh ÷ (panel watts × efficiency fraction)."
+        />
+      </div>
+    );
+  }
+  if (tool.slug === "solar-inverter-size-calculator") {
+    const result = solarInverterSize(
+      n("continuousLoad"),
+      n("surgeLoad"),
+      n("safetyMargin"),
+    );
+    return (
+      <div className="grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
+        <FormShell note="This is a planning estimate, not a universal inverter-sizing rule. Confirm appliance startup behavior, voltage, waveform, battery limits, and manufacturer requirements for the selected inverter.">
+          <NumericField
+            label="Continuous connected load"
+            value={values.continuousLoad}
+            onChange={set("continuousLoad")}
+            suffix="W"
+          />
+          <NumericField
+            label="Largest startup/surge load"
+            value={values.surgeLoad}
+            onChange={set("surgeLoad")}
+            suffix="W"
+          />
+          <NumericField
+            label="Safety margin"
+            value={values.safetyMargin}
+            onChange={(value) =>
+              set("safetyMargin")(String(Math.min(100, numberValue(value))))
+            }
+            suffix="%"
+          />
+        </FormShell>
+        <ResultPanel
+          title="Recommended inverter sizing"
+          value={`${round(result.recommendedContinuousWatts)} W continuous`}
+          detail={`Required surge capability: ${round(result.requiredSurgeWatts)} W. Both outputs include the ${round(Math.min(100, n("safetyMargin")))}% safety margin assumption.`}
         />
       </div>
     );
