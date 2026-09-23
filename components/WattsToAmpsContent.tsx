@@ -24,24 +24,11 @@ const faqs = [
 ];
 
 export function WattsToAmpsContent() {
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: { "@type": "Answer", text: faq.answer },
-    })),
-  };
   return (
     <section
       className="mt-12 border-t border-[var(--line)] pt-10"
       aria-labelledby="watts-to-amps-guide"
     >
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
       <div className="max-w-3xl">
         <p className="eyebrow">Watts to amps guide</p>
         <h2 id="watts-to-amps-guide" className="mt-2 text-3xl font-black">
