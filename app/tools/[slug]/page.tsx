@@ -19,6 +19,8 @@ import { getCategory, getTool, tools } from "@/lib/tools";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { WebApplicationJsonLd } from "@/components/WebApplicationJsonLd";
+import { FAQPageJsonLd } from "@/components/FAQPageJsonLd";
 
 const electricalSeo: Record<string, { title: string; description: string }> = {
   "watts-to-amps-calculator": {
@@ -165,6 +167,24 @@ export default async function ToolPage({
             path: getCategory(tool.category)?.path ?? "/tools",
           },
           { name: tool.name, path: `/tools/${tool.slug}` },
+        ]}
+      />
+      <WebApplicationJsonLd
+        name={tool.name}
+        description={tool.description}
+        url={`${siteConfig.url}/tools/${tool.slug}`}
+      />
+      <FAQPageJsonLd
+        faqs={[
+          {
+            question: "Is this calculator free?",
+            answer: "Yes, it is completely free to use.",
+          },
+          { question: "Do I need to sign up?", answer: "No sign up is required." },
+          {
+            question: "How accurate is this calculator?",
+            answer: "It provides estimates based on standard electrical formulas.",
+          },
         ]}
       />
       <Header />
