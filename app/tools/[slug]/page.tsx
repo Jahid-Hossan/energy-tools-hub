@@ -24,81 +24,81 @@ const electricalSeo: Record<string, { title: string; description: string }> = {
   "watts-to-amps-calculator": {
     title: "Watts to Amps Calculator - Free Online Calculator",
     description:
-      "Convert watts to amps instantly with our free online calculator. Get accurate DC, AC, and three-phase results. Try it now.",
+      "Convert watts to amps for DC and AC systems. Calculate instantly with our free tool.",
   },
   "amps-to-watts-calculator": {
-    title: "Amps to Watts Calculator - Free & Instant Conversion",
+    title: "Amps to Watts Calculator - Free Online Calculator",
     description:
-      "Convert amps to watts instantly with our free online calculator. Enter voltage and current to get accurate wattage results. No sign-up required.",
+      "Convert amps to watts for DC and AC systems. Calculate instantly with our free tool.",
   },
   "volts-amps-watts-calculator": {
-    title: "Volts, Amps & Watts Calculator - Free Online Tool",
+    title: "Volts, Amps & Watts Calculator - Free Online Calculator",
     description:
-      "Solve for volts, amps, or watts instantly with our free online calculator. Easy electrical conversions for any system. Start calculating now.",
+      "Solve for volts, amps, or watts in DC and AC systems. Calculate instantly with our free tool.",
   },
   "appliance-wattage-calculator": {
     title: "Appliance Wattage Calculator - Free Online Calculator",
     description:
-      "Estimate appliance wattage instantly with our free online calculator. Perfect for sizing generators or planning energy use. Get your estimate today.",
+      "Estimate appliance wattage for home backup or off-grid sizing. Calculate instantly with our free tool.",
   },
   "kwh-calculator": {
-    title: "kWh Calculator - Free Online Energy Calculator",
+    title: "kWh Calculator - Free Online Calculator",
     description:
-      "Calculate daily and period energy use in kWh instantly with our free online calculator. Estimate your electricity consumption. Try it now.",
+      "Calculate daily and period energy use in kWh. Calculate instantly with our free tool.",
   },
   "electricity-cost-calculator": {
     title: "Electricity Cost Calculator - Free Online Calculator",
     description:
-      "Estimate electricity costs instantly with our free online calculator. Enter your energy use and utility rate to see your expenses. Start now.",
+      "Estimate electricity cost based on your energy use and rate. Calculate instantly with our free tool.",
   },
 };
 const batterySeo: Record<string, { title: string; description: string }> = {
   "battery-runtime-calculator": {
     title: "Battery Runtime Calculator - Free Online Calculator",
     description:
-      "Estimate battery runtime instantly with our free online calculator. Input capacity and load for accurate backup time estimates. Try it for free.",
+      "Estimate battery backup time from capacity and load. Calculate instantly with our free tool.",
   },
   "battery-capacity-calculator": {
     title: "Battery Capacity Calculator - Free Online Calculator",
     description:
-      "Size your battery capacity instantly with our free online calculator. Find the right amp-hours for your load and runtime needs. Start calculating.",
+      "Find the right battery amp-hours for your load and runtime. Calculate instantly with our free tool.",
   },
   "ah-to-wh-calculator": {
     title: "Ah to Wh Calculator - Free Online Calculator",
     description:
-      "Convert battery amp-hours to watt-hours instantly with our free online calculator. Perfect for comparing battery sizes. Try it now.",
+      "Convert battery amp-hours to nominal watt-hours. Calculate instantly with our free tool.",
   },
   "wh-to-ah-calculator": {
     title: "Wh to Ah Calculator - Free Online Calculator",
     description:
-      "Convert battery watt-hours to amp-hours instantly with our free online calculator. Easy and accurate battery sizing. Start your conversion.",
+      "Convert battery watt-hours to amp-hours at a specific voltage. Calculate instantly with our free tool.",
   },
   "battery-charging-time-calculator": {
-    title: "Battery Charge Time Calculator - Free Online Tool",
+    title: "Battery Charge Time Calculator - Free Online Calculator",
     description:
-      "Estimate battery charging time instantly with our free online calculator. Input battery capacity and charger specs to get started. Try it now.",
+      "Estimate charging time based on battery and charger specs. Calculate instantly with our free tool.",
   },
 };
 const generatorSeo: Record<string, { title: string; description: string }> = {
   "generator-size-calculator": {
     title: "Generator Size Calculator - Free Online Calculator",
     description:
-      "Find the right generator size instantly with our free online calculator. Estimate running and starting watts for your appliances. Start sizing.",
+      "Find the right generator size for your running and starting loads. Calculate instantly with our free tool.",
   },
   "generator-wattage-calculator": {
     title: "Generator Wattage Calculator - Free Online Calculator",
     description:
-      "Calculate generator wattage requirements instantly with our free online calculator. Ensure you have enough power for your needs. Try it for free.",
+      "Compare generator running and starting wattage against loads. Calculate instantly with our free tool.",
   },
   "generator-runtime-calculator": {
     title: "Generator Runtime Calculator - Free Online Calculator",
     description:
-      "Estimate generator runtime instantly with our free online calculator. Input fuel capacity and consumption rate for accurate results. Try it now.",
+      "Estimate generator runtime based on fuel capacity and load. Calculate instantly with our free tool.",
   },
   "generator-fuel-consumption-calculator": {
     title: "Generator Fuel Calculator - Free Online Calculator",
     description:
-      "Estimate generator fuel consumption instantly with our free online calculator. Plan your fuel needs accurately. Start calculating today.",
+      "Estimate generator fuel consumption for a given runtime. Calculate instantly with our free tool.",
   },
 };
 
