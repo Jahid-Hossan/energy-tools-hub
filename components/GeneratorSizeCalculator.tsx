@@ -81,7 +81,16 @@ function ResultMetric({
 export function GeneratorSizeCalculator() {
   const [loads, setLoads] = useState<LoadRow[]>(firstLoads);
   const [search, setSearch] = useState("");
-  const [headroom, setHeadroom] = useState(20);
+  const [headroom, _setHeadroom] = useState(20);
+  const setHeadroom = (value: number) => {
+    _setHeadroom(value);
+    if (typeof window !== "undefined" && (window as Window & typeof globalThis & { gtag?: (...args: unknown[]) => void }).gtag) {
+      (window as Window & typeof globalThis & { gtag?: (...args: unknown[]) => void }).gtag("event", "calculate_click", {
+        tool_slug: "generator-size-calculator",
+        tool_category: "Generator",
+      });
+    }
+  };
   const [customDraft, setCustomDraft] = useState<CustomDraft>(emptyCustom);
   const [showCustom, setShowCustom] = useState(false);
   const [nextId, setNextId] = useState(3);
@@ -108,6 +117,12 @@ export function GeneratorSizeCalculator() {
     setLoads((current) =>
       current.map((load) => (load.id === id ? { ...load, ...changes } : load)),
     );
+    if (typeof window !== "undefined" && (window as Window & typeof globalThis & { gtag?: (...args: unknown[]) => void }).gtag) {
+      (window as Window & typeof globalThis & { gtag?: (...args: unknown[]) => void }).gtag("event", "calculate_click", {
+        tool_slug: "generator-size-calculator",
+        tool_category: "Generator",
+      });
+    }
   }
   function addCustom() {
     if (!customDraft.name.trim()) return;
