@@ -172,8 +172,15 @@ function modeOptions() {
 
 function GenericCalculator({ tool }: { tool: Tool }) {
   const [values, setValues] = useState<Values>(defaults);
-  const set = (key: string) => (value: string) =>
+  const set = (key: string) => (value: string) => {
     setValues((current) => ({ ...current, [key]: value }));
+    if (typeof window !== "undefined" && (window as Window & typeof globalThis & { gtag?: (...args: unknown[]) => void }).gtag) {
+      (window as Window & typeof globalThis & { gtag?: (...args: unknown[]) => void }).gtag("event", "calculate_click", {
+        tool_slug: tool.slug,
+        tool_category: tool.category,
+      });
+    }
+  };
   const n = (key: string) => numberValue(values[key] ?? "0");
   const mode = values.mode as ElectricalMode;
   const pf = Math.min(1, Math.max(0.01, n("pf")));
