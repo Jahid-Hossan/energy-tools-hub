@@ -21,6 +21,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { WebApplicationJsonLd } from "@/components/WebApplicationJsonLd";
 import { FAQPageJsonLd } from "@/components/FAQPageJsonLd";
+import { ToolFAQSection } from "@/components/ToolFAQSection";
+import { toolFaqs } from "@/data/toolFaqs";
 
 const electricalSeo: Record<string, { title: string; description: string }> = {
   "watts-to-amps-calculator": {
@@ -157,6 +159,11 @@ export default async function ToolPage({
   const { slug } = await params;
   const tool = getTool(slug);
   if (!tool) notFound();
+  const faqs = toolFaqs[tool.slug] ?? [];
+  const faqs = toolFaqs[tool.slug] ?? [];
+  const faqs = toolFaqs[tool.slug] ?? [];
+  const faqs = toolFaqs[tool.slug] ?? [];
+  const faqs = toolFaqs[tool.slug] ?? [];
   return (
     <div className="site-grid min-h-screen">
       <BreadcrumbJsonLd
@@ -174,19 +181,7 @@ export default async function ToolPage({
         description={tool.description}
         url={`${siteConfig.url}/tools/${tool.slug}`}
       />
-      <FAQPageJsonLd
-        faqs={[
-          {
-            question: "Is this calculator free?",
-            answer: "Yes, it is completely free to use.",
-          },
-          { question: "Do I need to sign up?", answer: "No sign up is required." },
-          {
-            question: "How accurate is this calculator?",
-            answer: "It provides estimates based on standard electrical formulas.",
-          },
-        ]}
-      />
+      <FAQPageJsonLd faqs={faqs} />
       <Header />
       <main className="mx-auto max-w-6xl px-5 py-10">
         <nav className="mb-8 text-sm text-[var(--ink-muted)]">
@@ -218,6 +213,11 @@ export default async function ToolPage({
         {isGeneratorContentSlug(tool.slug) && (
           <GeneratorCalculatorContent slug={tool.slug} />
         )}
+        <ToolFAQSection faqs={faqs} />
+        <ToolFAQSection faqs={faqs} />
+        <ToolFAQSection faqs={faqs} />
+        <ToolFAQSection faqs={faqs} />
+        <ToolFAQSection faqs={faqs} />
         <section className="grid gap-8 border-t border-[var(--line)] pt-10 md:grid-cols-2">
           <div>
             <h2 className="text-2xl font-black">Important assumptions</h2>
